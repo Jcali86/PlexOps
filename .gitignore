@@ -1,0 +1,30 @@
+# Local config - holds the Plex token and TMDb/Sonarr/Radarr API keys.
+# Copy config.example.yaml to config.yaml and fill in your own values.
+config.yaml
+.env
+
+# Encryption key for stored Plex tokens - never commit
+data/
+
+# Scan database - rebuild with scripts/full_rescan.py
+*.db
+*.db-wal
+*.db-shm
+
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+logs/
+posteria/
+.DS_Store
+
+# Optional personal theme photographs stay local. Generic CSS backgrounds work
+# without these files; legacy names preserve existing theme preferences.
+dashboard/icons/rae.png
+dashboard/icons/athena.jpg
+
+# Private operational notes and original installation captures stay local.
+docs/review-handoff.md
+docs/walkthrough-shots/0[1-6]-*.png

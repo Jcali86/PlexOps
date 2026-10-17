@@ -1,0 +1,39 @@
+services:
+  posteria:
+    image: bozodev/posteria:latest
+    container_name: posteria
+    ports:
+      - "127.0.0.1:1818:80"
+    environment:
+      - SITE_TITLE=Posteria
+      - AUTH_USERNAME=${POSTERIA_USER:-admin}
+      - AUTH_PASSWORD=${POSTERIA_PASSWORD:?set POSTERIA_PASSWORD in .env}
+      - SESSION_DURATION=3600
+      - AUTH_BYPASS=false
+      - PUID=1000
+      - PGID=1000
+      - TZ=Europe/London
+      - IMAGES_PER_PAGE=24
+      - MAX_FILE_SIZE=5242880
+      - PLEX_SERVER_URL=http://host.docker.internal:32400
+      - PLEX_TOKEN=${PLEX_TOKEN:?set PLEX_TOKEN in .env}
+      - PLEX_REMOVE_OVERLAY_LABEL=false
+      - IGNORE_ARTICLES_IN_SORT=true
+      - SORT_BY_DATE_ADDED=false
+      - AUTO_IMPORT_ENABLED=false
+      - AUTO_IMPORT_SCHEDULE=1h
+      - AUTO_IMPORT_MOVIES=false
+      - AUTO_IMPORT_SHOWS=false
+      - AUTO_IMPORT_COLLECTIONS=false
+    volumes:
+      - ./posteria/posters:/app/posters
+      - ./posteria/config:/app/config
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 15s
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    restart: unless-stopped

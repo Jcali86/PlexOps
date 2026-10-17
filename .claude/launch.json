@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "Plex-Ops API & Dashboard",
+      "runtimeExecutable": "./venv/bin/python",
+      "runtimeArgs": ["main.py"],
+      "port": 5050
+    }
+  ]
+}

@@ -1,0 +1,89 @@
+# Copy to config.yaml and fill in your own values.
+# Replace the example library paths with paths readable by this installation.
+plex:
+  url: "http://localhost:32400"
+  token: "REPLACE_ME"
+
+# Generic examples only. Keep your actual mount names in gitignored config.yaml.
+nas:
+  movies:
+    - "/path/to/media/Movies"
+  tv:
+    - "/path/to/media/TV"
+  anime_movies:
+    - "/path/to/media/Anime/Movies"
+  anime_tv:
+    - "/path/to/media/Anime/TV"
+  disney:
+    - "/path/to/media/Family"
+  concerts:
+    - "/path/to/media/Music Videos"
+  4k:
+    - "/path/to/media/4K Movies"
+  4k_tv:
+    - "/path/to/media/4K TV"
+
+tmdb:
+  api_key: "REPLACE_ME"
+  base_url: "https://api.themoviedb.org/3"
+
+sonarr:
+  url: "http://localhost:8989"
+  api_key: "REPLACE_ME"
+
+radarr:
+  url: "http://localhost:7878"
+  api_key: "REPLACE_ME"
+
+# Optional poster tool. Use the same private login configured for Posteria.
+# Blank credentials disable automated Posteria requests. Docker Compose reads
+# its own .env; this Python application reads these config.yaml values.
+posteria:
+  url: "http://127.0.0.1:1818"
+  username: ""
+  password: ""
+
+# Optional. With a key, the Movie Night page understands free-form requests
+# like "something gentle after a long week"; without one it falls back to
+# keyword matching, which handles "romcom" but not moods.
+anthropic:
+  api_key: "YOUR_ANTHROPIC_API_KEY"
+
+# What the household page calls itself: page title, home-screen icon, and the
+# name of each person's default playlist.
+app:
+  name: "PlexGet"
+  # How much model use each person gets, and the ceiling for everyone together.
+  limits:
+    per_hour: 30
+    per_day: 100
+    server_per_day: 400
+    max_query_chars: 200
+
+# Everything PlexGet can send. Turn any of them off, or reword them - {braces}
+# are filled in when it sends. Nothing else is ever sent.
+notifications:
+  arrived:            # to whoever asked, once their film is playable in Plex
+    enabled: true
+    title: "It's here"
+    body: "{film} is now on Plex - the film you asked for."
+  requested:          # to you, when somebody asks for something
+    enabled: true
+    title: "New request"
+    body: "{who} asked for {film}"
+  file_missing:       # to you, when a search finds a film whose file has vanished
+    enabled: true
+    title: "A file has gone missing"
+    body: "{film} is in Plex but the file is gone. It is back on the wanted list."
+  test:               # only ever sent when somebody presses the test button
+    enabled: true
+    title: "PlexGet"
+    body: "Notifications are working. You'll hear from us when a film you asked for arrives."
+
+flask:
+  host: "127.0.0.1"
+  port: 5050
+  debug: false
+
+database:
+  path: "plex_ops.db"
